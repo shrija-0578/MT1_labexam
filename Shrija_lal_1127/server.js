@@ -21,19 +21,13 @@ function isValid(body) {
   );
 }
 
-//GET all
+//GET all---->postman 1
 app.get("/api/students", (req, res) => {
   res.status(200).json(students);
 });
 
-// Filter (must be BEFORE /:id)
-app.get("/api/students/filter", (req, res) => {
-  const branch = (req.query.branch || "").toLowerCase();
-  const result = students.filter(s => s.branch.toLowerCase() === branch);
-  res.status(200).json(result);
-});
 
-// GET by id
+// GET by id ---->postman 3
 app.get("/api/students/:id", (req, res) => {
   const student = students.find(s => s.id === Number(req.params.id));
   if (!student) {
@@ -42,7 +36,7 @@ app.get("/api/students/:id", (req, res) => {
   res.status(200).json(student);
 });
 
-// POST
+// POST ---->postman 2
 app.post("/api/students", (req, res) => {
   if (!isValid(req.body)) {
     return res.status(400).json({ error: "Invalid or missing fields" });
@@ -59,7 +53,7 @@ app.post("/api/students", (req, res) => {
   res.status(201).json(newStudent);
 });
 
-// PUT
+// PUT ---->postman 4
 app.put("/api/students/:id", (req, res) => {
   const student = students.find(s => s.id === Number(req.params.id));
   if (!student) {
@@ -76,7 +70,7 @@ app.put("/api/students/:id", (req, res) => {
   res.status(200).json(student);
 });
 
-// DELETE
+// DELETE ---->postman 5
 app.delete("/api/students/:id", (req, res) => {
   const index = students.findIndex(s => s.id === Number(req.params.id));
   if (index === -1) {
@@ -84,6 +78,13 @@ app.delete("/api/students/:id", (req, res) => {
   }
   students.splice(index, 1);
   res.status(200).json({ message: "Student deleted successfully" });
+});
+
+// Filter ---->postman 6
+app.get("/api/students/filter", (req, res) => {
+  const branch = (req.query.branch || "").toLowerCase();
+  const result = students.filter(s => s.branch.toLowerCase() === branch);
+  res.status(200).json(result);
 });
 
 app.listen(3000, () => {
