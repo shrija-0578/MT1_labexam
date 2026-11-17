@@ -1,5 +1,7 @@
 Name shrija lal
 roll no 2500320101127
+set b
+
 
 Common Setup 
 mkdir name_rollno 
